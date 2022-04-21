@@ -14,9 +14,11 @@ public class Snake_Ladder {
         while (position < 100) {
             int dieNum = random.nextInt(6) + 1;
             int options = random.nextInt(4);
+
+
             {
 
-                switch (options) {
+                 switch (options) {
                     case LADDER:
                         if (position + dieNum > 100)
                             break;
@@ -28,6 +30,7 @@ public class Snake_Ladder {
                         position -= dieNum;
                         position = Math.max(position, 0);
                         break;
+
                 }
             }
             System.out.println("position is :" + position);
