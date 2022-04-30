@@ -3,40 +3,61 @@ package com.bridgelabz;
 import java.util.Random;
 
 public class Snake_Ladder {
+    public static final int START_POSITION = 0;
+    public static final int END_POSITION = 100;
+    public static final int NO_PLAY = 0;
+    public static final int LADDER = 1;
+    public static final int SNAKE = 2;
+    static String POSITION;
+    static Random random = new Random();
 
+    public static int dieRoll() {
+        int diceValue = random.nextInt(6) + 1;
+        System.out.println("Dice value : " + diceValue);
+        return diceValue;
+    }
+
+    public static int playerChecksOption() {
+        int diceCount = 0;
+        int currentPosition = START_POSITION;
+        while (currentPosition < END_POSITION) {
+            int diceNumber = dieRoll();
+            diceCount++;
+            int checkOption = random.nextInt(3);
+            switch (checkOption) {
+                case NO_PLAY:
+                    POSITION = "Not played";
+                    currentPosition = currentPosition;
+                    break;
+                case LADDER:
+                    POSITION = "Player is on Ladder";
+                    if (currentPosition + diceNumber > END_POSITION) {
+                        currentPosition = currentPosition;
+                    } else {
+                        currentPosition += diceNumber;
+                    }
+                    break;
+                case SNAKE:
+                    POSITION = "Player is on Snake";
+                    if (currentPosition - diceNumber <= START_POSITION) {
+                        currentPosition = START_POSITION;
+                    } else {
+                        currentPosition -= diceNumber;
+                    }
+                    break;
+            }
+            System.out.println("Dice Count : " + diceCount);
+            System.out.println("#Player's Position :" + POSITION + ",  #Current Position :" + currentPosition);
+        }
+        return currentPosition;
+    }
 
     public static void main(String[] args) {
-        Random random = new Random();
-        int position = 0;
-        final int LADDER = 1;
-        final int NOPLAY = 2;
-        final int SNAKE = 3;
-        while (position < 100) {
-            int dieNum = random.nextInt(6) + 1;
-            int options = random.nextInt(4);
-
-
-            {
-
-                 switch (options) {
-                    case LADDER:
-                        if (position + dieNum > 100)
-                            break;
-                        position += dieNum;
-                        break;
-                    case NOPLAY:
-                        break;
-                    case SNAKE:
-                        position -= dieNum;
-                        position = Math.max(position, 0);
-                        break;
-
-                }
-            }
-            System.out.println("position is :" + position);
-        }
+        System.out.println("Welcome to Snake and Ladder Game");
+        playerChecksOption();
     }
 }
+
 
 
 
